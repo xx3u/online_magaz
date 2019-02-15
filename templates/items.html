@@ -1,15 +1,72 @@
 {% extends "layout.html" %}
 {% block body %}
+  <!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="https://scontent-otp1-1.cdninstagram.com/vp/dc584fdd843a3bdfdf229187db998321/5CC1B03B/t51.2885-19/s150x150/39199941_2151513158461966_1193038191368601600_n.jpg?_nc_ht=scontent-otp1-1.cdninstagram.com" width="30" height="30" class="d-inline-block align-top" alt="">
+    Vault77 Online Shopping in Alashopkz: List of Our Products
+  </a>
+</nav>
+
   <form method="GET" class="form">
-    <h4>List of Items</h4>
-    <div class="form-row align-items-center">
-    {% for item in items %}
-      <div class="form-group col-md-4">
-        <input class="form-control" id="inputItem" type="text" value="{{ item }}" name="{{ item }}_name">
+    
+      <div class="card-deck">
+        <div class="card">
+            <img src="https://www.notebookcheck.net/fileadmin/Notebooks/Xiaomi/Mi_Notebook_Air_13_2018/mi_nb_air_4zu3_intro.jpg" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">Notebook</h5>
+                <p class="card-text">Mi Laptop Air features a 13.3" display and full-sized keyboard in a full metal body</p>
+                <p class="text-danger">Price: 500 LC</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-success">In Stock</small>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://rukminim1.flixcart.com/image/704/704/jmux18w0/television/j/k/m/mi-l32m5-ai-original-imaf9zf8gfgh4wvz.jpeg?q=70" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">TV</h5>
+                <p class="card-text">Mi LED Smart TV 4A 80 cm (32)</p>
+                <p class="text-danger">Price: 200 LC</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-success">In Stock</small>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://gloimg.gbtcdn.com/gb/pdm-product-pic/Electronic/2017/06/16/source-img/20170616150620_13014.jpg" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">Flash</h5>
+                <p class="card-text">Original SanDisk CZ73 USB 3.0 Flash Memory Drive - COLORMIX 32G</p>
+                <p class="text-danger">Price: 10 LC</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-success">In Stock</small>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://www.lg.com/au/images/smartphones/md05878255/gallery/V30-medium01.jpg" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">Smartphone</h5>
+                <p class="card-text">LG V30+ Aurora Black LGH930DS</p>
+                <p class="text-danger">Price: 150 LC</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-success">In Stock</small>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://www.bhphotovideo.com/images/images2500x2500/canon_1263c006_eos_80d_dslr_camera_1225877.jpg" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">Camera</h5>
+                <p class="card-text">Canon EOS 80D DSLR Camera with 18-135mm Lens</p>
+                <p class="text-danger">Price: 550 LC</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-success">In Stock</small>
+            </div>
+        </div>
       </div>
          
-    {% endfor %}
-    </div>
-  </form>
     
 {% endblock %}

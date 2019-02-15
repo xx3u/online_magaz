@@ -1,22 +1,28 @@
 {% extends "layout.html" %}
 {% block body %}
-  <div class="card text-center w-25 p-3" style="width: 18rem;">
-  <img src="https://scontent-otp1-1.cdninstagram.com/vp/dc584fdd843a3bdfdf229187db998321/5CC1B03B/t51.2885-19/s150x150/39199941_2151513158461966_1193038191368601600_n.jpg?_nc_ht=scontent-otp1-1.cdninstagram.com" class="card-img-top">
-    <div class="card-body">
-      <h5 class="card-title">Welcome to shop of Vault77!</h5>
-        <p class="card-text">
-    Dear 
+  <!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="https://scontent-otp1-1.cdninstagram.com/vp/dc584fdd843a3bdfdf229187db998321/5CC1B03B/t51.2885-19/s150x150/39199941_2151513158461966_1193038191368601600_n.jpg?_nc_ht=scontent-otp1-1.cdninstagram.com" width="30" height="30" class="d-inline-block align-top" alt="">
+    Vault77 Online Shopping in Alashopkz: Home
+  </a>
+</nav>
+  <div class="jumbotron">
+  <h1 class="display-4">Welcome to Online Shop "Alashopkz"!
+  </h1>
+  <p class="lead">
+  Dear 
     {% if name %}
     {{ name }},
     {% else %}
     customer,
     {% endif %}
-      
-  <p>Please refer to the following link in order to 
-  <a href="http://127.0.0.1:5000/login/" class="card-link">Login</a></p>
+  please refer to the following link in order to</p>
+  <a class="btn btn-primary btn-lg" href="http://127.0.0.1:5000/login/" role="button">Login</a>
+  
+  <hr class="my-4">
+  <p>Please refer to the following link for</p>
+  <a class="btn btn-primary btn-lg" href="http://127.0.0.1:5000/items/" role="button">List of products</a>
+</div>
 
-  <p>Please refer to the following link for 
-  <a href="http://127.0.0.1:5000/items/" class="card-link">Your Cart</a></p>
-    </div>
-  </div>
 {% endblock %}

@@ -6,9 +6,11 @@ from flask_security import Security, PeeweeUserDatastore, login_required
 
 from models import db, User, Role, UserRoles, Item, Customer, Cart, CartItem
 from admin import Admin
+from datetime import date
 
 
 app = Flask(__name__)
+# Set the secret key
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config['SECURITY_PASSWORD_HASH'] = 'sha256_crypt'
 app.config['SECURITY_PASSWORD_SALT'] = 'salt'
@@ -38,24 +40,34 @@ def create_user():
         email='test@test.com',
         password='password'
     )
-    item = Item(name='notebook', stock=300, price=500)
-    item.save()
-    item = Item(name='TV', stock=250, price=200)
-    item.save()
-    item = Item(name='flash', stock=950, price=10)
-    item.save()
-    item = Item(name='smartphone', stock=455, price=150)
-    item.save()
-    item = Item(name='camera', stock=50, price=550)
-    item.save()
+    item1 = Item(name='notebook', stock=300, price=500)
+    item1.save()
+    item2 = Item(name='TV', stock=250, price=200)
+    item2.save()
+    item3 = Item(name='flash', stock=950, price=10)
+    item3.save()
+    item4 = Item(name='smartphone', stock=455, price=150)
+    item4.save()
+    item5 = Item(name='camera', stock=50, price=550)
+    item5.save()
+    customer = Customer(name='John', birthday=date(1990, 1, 15))
+    customer.save()
+    cart1 = Cart(customer=customer.id)
+    cart1.save()
+    cartitem = CartItem(cart=cart1, item=item1, quantity=3)
+    cartitem.save()
+    customer = Customer(name='Olivier', birthday=date(1995, 2, 22))
+    customer.save()
+    cart2 = Cart(customer=customer.id)
+    cart2.save()
+    cartitem = CartItem(cart=cart2, item=item5, quantity=45)
+    cartitem.save()
 
 
+# routing on index page
 @app.route('/')
 @login_required
 def index():
-    """
-    Return index page of the web app
-    """
     name = session.get('name')
     response = render_template('index.html', name=name)
     return response
@@ -77,4 +89,5 @@ def login():
 @app.route('/items/', methods=['GET'])
 def items():
     if request.method == 'GET':
+        items = Item.select()
         return render_template('items.html', items=items)

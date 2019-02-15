@@ -1,8 +1,11 @@
 from peewee import (
     Model, SqliteDatabase,
-    CharField, IntegerField, ForeignKeyField, BooleanField
+    CharField, DateField, IntegerField, ForeignKeyField,
+    BooleanField, DecimalField
 )
 from flask_security import UserMixin
+
+from playhouse.signals import Model, post_save
 
 
 db = SqliteDatabase('my_app.db')
@@ -35,7 +38,8 @@ class UserRoles(BaseModel):
 class Item(BaseModel):
     name = CharField()
     stock = IntegerField()
-    price = IntegerField()
+    price = DecimalField()
+    in_stock = IntegerField(null=True)
 
     def __str__(self):
         return self.name
@@ -43,7 +47,7 @@ class Item(BaseModel):
 
 class Customer(BaseModel):
     name = CharField()
-    age = IntegerField()
+    birthday = DateField()
 
     def __str__(self):
         return self.name
@@ -51,6 +55,8 @@ class Customer(BaseModel):
 
 class Cart(BaseModel):
     customer = ForeignKeyField(Customer, backref='carts')
+    amount = DecimalField(null=True)
+    paid = BooleanField(default=False)
 
     def __str__(self):
         return 'Cart {}'.format(self.id)
@@ -59,25 +65,23 @@ class Cart(BaseModel):
 class CartItem(BaseModel):
     cart = ForeignKeyField(Cart, backref='items')
     item = ForeignKeyField(Item, backref='carts')
-#    quantity = IntegerField()
+    quantity = IntegerField()
+
+    def __str__(self):
+        return str(self.item)
 
 
-class _FakeSignal(object):
-    """If blinker is unavailable, create a fake class with the same
-    interface that allows sending of signals but will fail with an
-    error on anything else.  Instead of doing anything on send, it
-    will just ignore the arguments and do nothing instead.
-    """
-
-    def __init__(self, name, doc=None):
-        self.name = name
-        self.__doc__ = doc
-
-    def _fail(self, *args, **kwargs):
-        raise RuntimeError('signalling support is unavailable '
-                           'because the blinker library is '
-                           'not installed.')
-    send = lambda *a, **kw: None
-    connect = disconnect = has_receivers_for = receivers_for = \
-        temporarily_connected_to = connected_to = _fail
-    del _fail
+@post_save(sender=CartItem)
+def on_save_handler(model_class, instance, created):
+    cart = instance.cart
+    total = [
+        item.item.price * item.quantity for item in cart.items
+    ]
+    instance.cart.amount = sum(total)
+    instance.cart.save()
+#    item = instance.item
+#    closing_balance = [
+#        item.item.stock - item.quantity for item in cart.items
+#    ]
+#    instance.item.in_stock = sum(closing_balance)
+#    instance.item.save()
